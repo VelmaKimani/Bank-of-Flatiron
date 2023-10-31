@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
 
+import React, { useEffect, useState } from 'react';
+
+import Form from './components/Form';
+import Navbar from './components/Navbar';
+import Table from './components/Table';
+
 function App() {
+  const [transactions, setTransactions] = useState([])
+
+  // Fetch data from the the db.json using useEffect
+
+  useEffect (()=> {
+    fetch ("https://my-json-server.typicode.com/VelmaKimani/Bank-of-Flatiron/transactions")
+      .then ((r)=> r.json ())
+      .then ((data)=> setTransactions(data))
+  }, [])
+
+  function updatedTransactions (newData) {
+    const updatedTransactionsArray = [...transactions, newData]
+    setTransactions (updatedTransactionsArray)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar/><br/>
+      <Form newTransaction = {updatedTransactions}/><br/>
+      <Table arayOfAllTransactions = {transactions}/>
     </div>
   );
 }
