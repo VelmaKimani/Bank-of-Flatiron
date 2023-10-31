@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 
 function Table ({arayOfAllTransactions}) {
     const [dataOfArray, setDataOfArray] = useState ("")
@@ -10,7 +10,7 @@ function Table ({arayOfAllTransactions}) {
         setDataOfArray (e.target.value)
     }
 
-    const oneTransaction = arayOfAllTransactions.filter ((item)=> {
+    const oneTransaction =Array.from(arayOfAllTransactions).filter ((item)=> {
         return dataOfArray.toLowerCase () === "" ? item : item.description.toLowerCase ().includes (dataOfArray)
     })
     .map ((transaction)=> {
